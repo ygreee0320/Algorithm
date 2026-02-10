@@ -26,7 +26,7 @@ public class Main {
             int currentCoin = coins[i];
 
             for (int j = currentCoin; j <= k; j++) {
-                dp[j] = dp[j] + dp[j - currentCoin];
+                dp[j] += dp[j - currentCoin];
             }
         }
 
