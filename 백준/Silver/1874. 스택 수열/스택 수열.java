@@ -6,7 +6,6 @@ public class Main {
     StringBuilder sb = new StringBuilder();
     Stack<Integer> stack = new Stack<>();
     int n, current;
-    boolean flag;
 
     void solution() throws Exception {
         n = Integer.parseInt(br.readLine());
@@ -21,18 +20,10 @@ public class Main {
                 current++;
             }
 
-            flag = false;
-            while (!stack.empty()) {
-                int p = stack.pop();
+            if (stack.peek() == k) {
+                stack.pop();
                 sb.append("-").append("\n");
-
-                if (p == k) {
-                    flag = true;
-                    break;
-                }
-            }
-
-            if (!flag) {
+            } else {
                 System.out.println("NO");
                 return;
             }
