@@ -12,40 +12,28 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
 
-        int[] arr = new int[N];
+        Queue<Integer> queue = new LinkedList<>();
 
-        for (int i = 0; i < N; i++) {
-            arr[i] = i + 1;
+        for (int i = 1; i <= N; i++) {
+            queue.add(i);
         }
 
         sb.append("<");
 
-        int idx = 0;
+        while (!queue.isEmpty()) {
+            for (int i = 0; i < K - 1; i++) {
+                queue.add(queue.poll());
+            }
 
-        for (int i = 0; i < N; i++) {
-            int cnt = 0;
+            sb.append(queue.poll());
 
-            while (true) {
-                if (arr[idx] > 0) {
-                    cnt++;
-                }
-
-                if (cnt == K) {
-                    sb.append(arr[idx]);
-                    arr[idx] = -1;
-                    idx = (idx + 1) % N;
-
-                    if (i < N - 1) {
-                        sb.append(", ");
-                    } else {
-                        sb.append(">");
-                    }
-                    break;
-                }
-
-                idx = (idx + 1) % N;
+            if (!queue.isEmpty()) {
+                sb.append(", ");
             }
         }
+
+        sb.append(">");
+
         System.out.println(sb);
     }
 
