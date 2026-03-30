@@ -23,13 +23,12 @@ public class Main {
             }
         }
 
-        int group_num = 0;
         ArrayList<Integer> res = new ArrayList<>();
 
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if (map[i][j] == 1 && !visited[i][j]) {
-                    res.add(bfs(i, j, N, group_num));
+                    res.add(bfs(i, j, N));
                 }
             }
         }
@@ -45,7 +44,7 @@ public class Main {
         System.out.println(sb);
     }
 
-    int bfs(int startX, int startY, int N, int g) {
+    int bfs(int startX, int startY, int N) {
         Queue<int[]> q = new LinkedList<>();
 
         q.add(new int[]{startX, startY});
