@@ -2,35 +2,28 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] priorities, int location) {
-        Queue<Integer> queue = new LinkedList<>();
+        Queue<int[]> queue = new LinkedList<>();
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
         
-        for (int p : priorities) {
-            queue.add(p);
+        for (int i = 0; i < priorities.length; i++) {
+            queue.add(new int[]{i, priorities[i]});
+            pq.add(priorities[i]);
         }
         
-        int[] sortedP = priorities;
-        Arrays.sort(sortedP);
-        
-        //int idx = priorities.length - 1;
         int answer = 0;
-        int location_idx = location;
-        int priority_idx = sortedP.length - 1;
         
         while (!queue.isEmpty()) {
-            int next = queue.poll();
+            int[] current = queue.poll();
             
-            if (next == sortedP[priority_idx]) {
+            if (current[1] == pq.peek()) {
                 answer++;
-                priority_idx--;
-                if (location_idx == 0) break;
+                pq.poll();
+                
+                if (current[0] == location) {
+                    return answer;
+                }
             } else {
-                queue.add(next);
-            }
-            
-            location_idx = (location_idx - 1);
-            
-            if (location_idx < 0) {
-                location_idx = queue.size() - 1;
+                queue.add(current);
             }
         }
         
