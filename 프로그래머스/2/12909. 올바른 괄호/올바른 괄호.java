@@ -5,10 +5,10 @@ class Solution {
         boolean answer = false;
         
         Stack<Character> stack = new Stack<>();
-        boolean isValid = true;
         
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
+            boolean isValid = true;
             
             if (c == '(') {
                 stack.push(c);
@@ -20,10 +20,11 @@ class Solution {
                 
                 stack.pop();
             }
-        }
-        
-        if (isValid && stack.isEmpty()) {
-            answer = true;
+            
+            if (isValid && stack.isEmpty()) {
+                answer = true;
+            }
+            
         }
 
         return answer;
