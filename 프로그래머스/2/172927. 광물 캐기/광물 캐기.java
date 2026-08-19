@@ -5,7 +5,6 @@ class Solution {
         // 5개씩 분할
         List<int[]> sortedMinerals = new ArrayList<>();
         int sum_picks = picks[0] + picks[1] + picks[2];
-        int count = 0;
         int d_cnt = 0; // 다이아 곡괭이 수
         int i_cnt = 0; // 철 곡괭이 수
         int s_cnt = 0; // 돌 곡괭이 수
@@ -24,17 +23,20 @@ class Solution {
             }
             
             if ((i + 1) % 5 == 0 || i == minerals.length - 1) {
-                int cost = d_cnt * 25 + i_cnt * 5 + s_cnt * 1;
-                sortedMinerals.add(new int[]{d_cnt, i_cnt, s_cnt, cost});
+                sortedMinerals.add(new int[]{d_cnt, i_cnt, s_cnt});
                 d_cnt = 0;
                 i_cnt = 0;
                 s_cnt = 0;
             }
         }
         
-        // 정렬
-        Collections.sort(sortedMinerals, (a, b) -> {
-           return Integer.compare(b[3], a[3]); 
+        // 정렬 (1. 다이아 개수, 2. 철 개수 내림차순)
+        sortedMinerals.sort((a, b) -> {
+            if (a[0] == b[0]) {
+                return Integer.compare(b[1], a[1]);
+            }
+            
+           return Integer.compare(b[0], a[0]); 
         });
         
         // 곡괭이 배분
