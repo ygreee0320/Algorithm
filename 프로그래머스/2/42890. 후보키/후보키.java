@@ -2,7 +2,7 @@ import java.util.*;
 
 class Solution {
     int answer = 0;
-    Set<Integer> candidate_key = new HashSet<>();
+    List<Set<Integer>> candidateKeys = new ArrayList<>();
     
     public int solution(String[][] relation) {
         for (int s = 1; s <= relation[0].length; s++) {
@@ -14,7 +14,15 @@ class Solution {
     
     private void combination(String[][] relation, int[] key, int size, int start, int depth) {
         if (depth == size) {
-            if (!isCandidate(key)) return;
+            Set<Integer> current = new HashSet<>();
+            
+            for (int c = 0; c < key.length; c++) {
+                if (key[c] == 1) {
+                    current.add(c);
+                }
+            }
+            
+            if (!isCandidate(current)) return;
             
             Map<String, Integer> map = new HashMap<>();
             
@@ -41,7 +49,7 @@ class Solution {
                     sb.append(Integer.toString(k));
                 }
                 
-                candidate_key.add(Integer.parseInt(sb.toString(), 2));
+                candidateKeys.add(current);
                 answer++;
             }
             
@@ -55,17 +63,9 @@ class Solution {
         }
     }
     
-    private boolean isCandidate(int[] key) {
-        StringBuilder sb = new StringBuilder();
-        
-        for (int k : key) {
-            sb.append(Integer.toString(k));
-        }
-        
-        int mask = Integer.parseInt(sb.toString(), 2);
-        
-        for (Integer k : candidate_key) {
-            if ((mask & k) == k) {
+    private boolean isCandidate(Set<Integer> current) {
+        for (Set<Integer> candidate : candidateKeys) {
+            if (current.containsAll(candidate)) {
                 return false;
             }
         }
