@@ -11,25 +11,16 @@ class Solution {
             char[][] place = new char[5][5];
             
             for (int r = 0; r < 5; r++) {
-                for (int c = 0; c < 5; c++) {
-                    place[r][c] = places[i][r].charAt(c);
-                    boolean possible = bfs(place);
-                    
-                    if (possible) {
-                        answer[i] = 1;
-                    } else {
-                        answer[i] = 0;
-                    }
-                }
+                place[r] = places[i][r].toCharArray();
             }
+            
+            answer[i] = bfs(place) ? 1 : 0;
         }
         
         return answer;
     }
     
     private boolean bfs(char[][] place) {
-        boolean result = true;
-        
         for (int r = 0; r < 5; r++) {
             for (int c = 0; c < 5; c++) {
                 if (place[r][c] == 'P') {
